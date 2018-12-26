@@ -23,10 +23,12 @@ public class MotionTracker : MonoBehaviour {
 	}
 
 	void OnDestroy(){
-		using (StreamWriter writer = File.AppendText (System.String.Format("../data/out--{0}.json", System.DateTime.Now.ToString("yyyy-dd-M--HH-mm-ss")))) {
+		string path = System.String.Format("../data/out--{0}.json", System.DateTime.Now.ToString ("yyyy-dd-M--HH-mm-ss"));
+		using (StreamWriter writer = File.AppendText (path)) {
 			writer.WriteLine (JsonUtility.ToJson(data));
-			writer.Close ();	
+			writer.Close ();
+
+			print ("Data written to: " + Path.GetFullPath(path));
 		}
-		print ("Data written");
 	}
 }
